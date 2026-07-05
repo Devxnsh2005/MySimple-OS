@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SimpleOS - Educational Operating System Simulator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div id="boot-screen" class="screen active">
+        <div class="boot-container">
+            <h1><i class="fas fa-microchip"></i> SimpleOS</h1>
+            <div class="boot-progress">
+                <div class="progress-bar">
+                    <div id="boot-progress-fill" class="progress-fill"></div>
+                </div>
+                <div id="boot-status" class="boot-status">Initializing bootloader...</div>
+            </div>
+            <div id="boot-log" class="boot-log"></div>
+        </div>
+    </div>
+
+    <div id="os-desktop" class="screen">
+        <div class="taskbar">
+            <div class="taskbar-left">
+                <button id="start-menu-btn" class="start-button">
+                    <i class="fas fa-home"></i> SimpleOS
+                </button>
+                <div class="running-processes" id="running-processes"></div>
+            </div>
+            <div class="taskbar-right">
+                <div class="system-info">
+                    <span id="memory-usage">Memory: 0MB/1024MB</span>
+                    <span id="current-time"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="desktop-content">
+            <div class="window" id="terminal-window">
+                <div class="window-header">
+                    <span class="window-title"><i class="fas fa-terminal"></i> Shell Terminal</span>
+                    <div class="window-controls">
+                        <button class="window-btn minimize"><i class="fas fa-minus"></i></button>
+                        <button class="window-btn maximize"><i class="fas fa-square"></i></button>
+                        <button class="window-btn close"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <div id="terminal-output" class="terminal-output"></div>
+                    <div class="terminal-input-line">
+                        <span class="prompt">simpleos@user:~$ </span>
+                        <input type="text" id="terminal-input" class="terminal-input" autofocus>
+                    </div>
+                </div>
+            </div>
+
+            <div class="window" id="memory-window">
+                <div class="window-header">
+                    <span class="window-title"><i class="fas fa-memory"></i> Memory Manager</span>
+                    <div class="window-controls">
+                        <button class="window-btn minimize"><i class="fas fa-minus"></i></button>
+                        <button class="window-btn maximize"><i class="fas fa-square"></i></button>
+                        <button class="window-btn close"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <div class="memory-controls">
+                        <button id="allocate-btn" class="btn">Allocate Memory</button>
+                        <button id="deallocate-btn" class="btn">Deallocate Random</button>
+                        <button id="garbage-collect-btn" class="btn">Garbage Collect</button>
+                    </div>
+                    <div id="memory-visualization" class="memory-grid"></div>
+                    <div class="memory-stats">
+                        <div>Total Memory: <span id="total-memory">1024 MB</span></div>
+                        <div>Used Memory: <span id="used-memory">0 MB</span></div>
+                        <div>Free Memory: <span id="free-memory">1024 MB</span></div>
+                        <div>Fragmentation: <span id="fragmentation">0%</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="window" id="scheduler-window">
+                <div class="window-header">
+                    <span class="window-title"><i class="fas fa-cogs"></i> Process Scheduler</span>
+                    <div class="window-controls">
+                        <button class="window-btn minimize"><i class="fas fa-minus"></i></button>
+                        <button class="window-btn maximize"><i class="fas fa-square"></i></button>
+                        <button class="window-btn close"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <div class="scheduler-controls">
+                        <button id="create-process-btn" class="btn">Create Process</button>
+                        <button id="kill-process-btn" class="btn">Kill Process</button>
+                        <select id="scheduler-algorithm">
+                            <option value="roundrobin">Round Robin</option>
+                            <option value="fcfs">First Come First Serve</option>
+                            <option value="sjf">Shortest Job First</option>
+                        </select>
+                    </div>
+                    <div class="process-visualization">
+                        <div class="cpu-queue">
+                            <h3>Ready Queue</h3>
+                            <div id="ready-queue" class="queue"></div>
+                        </div>
+                        <div class="cpu-execution">
+                            <h3>CPU</h3>
+                            <div id="cpu-current" class="cpu-box">Idle</div>
+                        </div>
+                    </div>
+                    <table class="process-table">
+                        <thead>
+                            <tr>
+                                <th>PID</th>
+                                <th>Name</th>
+                                <th>State</th>
+                                <th>Priority</th>
+                                <th>CPU Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="process-table-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="window" id="filesystem-window">
+                <div class="window-header">
+                    <span class="window-title"><i class="fas fa-folder"></i> File System</span>
+                    <div class="window-controls">
+                        <button class="window-btn minimize"><i class="fas fa-minus"></i></button>
+                        <button class="window-btn maximize"><i class="fas fa-square"></i></button>
+                        <button class="window-btn close"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="window-content">
+                    <div class="filesystem-toolbar">
+                        <button id="create-file-btn" class="btn">Create File</button>
+                        <button id="create-dir-btn" class="btn">Create Directory</button>
+                        <button id="delete-item-btn" class="btn">Delete</button>
+                        <span class="current-path">Path: <span id="current-path">/</span></span>
+                    </div>
+                    <div class="filesystem-content">
+                        <div class="filesystem-tree">
+                            <h4>Directory Tree</h4>
+                            <div id="directory-tree"></div>
+                        </div>
+                        <div class="filesystem-details">
+                            <h4>Current Directory</h4>
+                            <div id="file-list" class="file-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/bootloader.js"></script>
+    <script src="js/memory.js"></script>
+    <script src="js/scheduler.js"></script>
+    <script src="js/filesystem.js"></script>
+    <script src="js/shell.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
+"<!-- trigger GitHub Pages -->" 

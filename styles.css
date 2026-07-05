@@ -1,0 +1,622 @@
+/* CSS Custom Properties */
+:root {
+    --primary-bg: 210 11% 15%;
+    --secondary-bg: 210 11% 20%;
+    --accent-bg: 210 11% 25%;
+    --text-primary: 210 11% 90%;
+    --text-secondary: 210 11% 70%;
+    --accent-color: 210 100% 60%;
+    --success-color: 120 100% 50%;
+    --warning-color: 45 100% 50%;
+    --error-color: 0 100% 50%;
+    --border-color: 210 11% 30%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    background: hsl(var(--primary-bg));
+    color: hsl(var(--text-primary));
+    height: 100vh;
+    overflow: hidden;
+}
+
+.screen {
+    display: none;
+    height: 100vh;
+}
+
+.screen.active {
+    display: block;
+}
+
+/* Boot Screen Styles */
+#boot-screen {
+    background: linear-gradient(135deg, hsl(var(--primary-bg)), hsl(var(--secondary-bg)));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#boot-screen:not(.active) {
+    display: none !important;
+}
+
+#os-desktop {
+    display: none;
+}
+
+#os-desktop.active {
+    display: block !important;
+}
+
+.boot-container {
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+    padding: 2rem;
+}
+
+.boot-container h1 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    color: hsl(var(--accent-color));
+    text-shadow: 0 0 20px hsl(var(--accent-color) / 0.5);
+}
+
+.boot-progress {
+    margin-bottom: 2rem;
+}
+
+.progress-bar {
+    background: hsl(var(--accent-bg));
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    border: 1px solid hsl(var(--border-color));
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, hsl(var(--accent-color)), hsl(120 100% 50%));
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px hsl(var(--accent-color) / 0.5);
+}
+
+.boot-status {
+    font-size: 1.2rem;
+    color: hsl(var(--text-secondary));
+}
+
+.boot-log {
+    background: hsl(var(--secondary-bg));
+    border: 1px solid hsl(var(--border-color));
+    border-radius: 5px;
+    padding: 1rem;
+    height: 200px;
+    overflow-y: auto;
+    text-align: left;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.boot-log div {
+    margin-bottom: 0.5rem;
+    padding: 0.2rem 0;
+}
+
+.boot-log .success {
+    color: hsl(var(--success-color));
+}
+
+.boot-log .warning {
+    color: hsl(var(--warning-color));
+}
+
+.boot-log .error {
+    color: hsl(var(--error-color));
+}
+
+/* Desktop Styles */
+.taskbar {
+    background: hsl(var(--secondary-bg));
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    border-bottom: 1px solid hsl(var(--border-color));
+    position: relative;
+    z-index: 1000;
+}
+
+.taskbar-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.start-button {
+    background: hsl(var(--accent-color));
+    color: hsl(var(--text-primary));
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.start-button:hover {
+    background: hsl(var(--accent-color) / 0.8);
+}
+
+.running-processes {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.taskbar-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.system-info {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: hsl(var(--text-secondary));
+}
+
+.desktop-content {
+    height: calc(100vh - 40px);
+    position: relative;
+    background: linear-gradient(135deg, hsl(var(--primary-bg)), hsl(var(--secondary-bg)));
+}
+
+/* Window Styles */
+.window {
+    position: absolute;
+    background: hsl(var(--secondary-bg));
+    border: 1px solid hsl(var(--border-color));
+    border-radius: 5px;
+    min-width: 400px;
+    min-height: 300px;
+    box-shadow: 0 5px 20px hsl(0 0% 0% / 0.3);
+    z-index: 100;
+}
+
+.window-header {
+    background: hsl(var(--accent-bg));
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid hsl(var(--border-color));
+    cursor: move;
+}
+
+.window-title {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.window-controls {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.window-btn {
+    background: none;
+    border: none;
+    color: hsl(var(--text-secondary));
+    padding: 0.25rem;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.window-btn:hover {
+    background: hsl(var(--border-color));
+}
+
+.window-btn.close:hover {
+    background: hsl(var(--error-color));
+    color: white;
+}
+
+.window-content {
+    padding: 1rem;
+    height: calc(100% - 40px);
+    overflow: auto;
+}
+
+/* Specific Window Positioning */
+#terminal-window {
+    top: 50px;
+    left: 50px;
+    width: 600px;
+    height: 400px;
+}
+
+#memory-window {
+    top: 100px;
+    left: 700px;
+    width: 500px;
+    height: 450px;
+}
+
+#scheduler-window {
+    top: 150px;
+    left: 100px;
+    width: 650px;
+    height: 500px;
+}
+
+#filesystem-window {
+    top: 80px;
+    left: 800px;
+    width: 550px;
+    height: 450px;
+}
+
+/* Terminal Styles */
+.terminal-output {
+    background: hsl(var(--primary-bg));
+    border: 1px solid hsl(var(--border-color));
+    border-radius: 3px;
+    padding: 1rem;
+    height: calc(100% - 60px);
+    overflow-y: auto;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.terminal-input-line {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    gap: 0.5rem;
+}
+
+.prompt {
+    color: hsl(var(--accent-color));
+    font-weight: bold;
+}
+
+.terminal-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: hsl(var(--text-primary));
+    font-family: inherit;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.command-line {
+    margin-bottom: 0.5rem;
+}
+
+.command-line .prompt {
+    color: hsl(var(--accent-color));
+}
+
+.command-output {
+    color: hsl(var(--text-secondary));
+    margin-bottom: 1rem;
+    white-space: pre-wrap;
+}
+
+/* Memory Manager Styles */
+.memory-controls {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.memory-grid {
+    background: hsl(var(--primary-bg));
+    border: 1px solid hsl(var(--border-color));
+    border-radius: 3px;
+    padding: 1rem;
+    height: 200px;
+    display: grid;
+    grid-template-columns: repeat(32, 1fr);
+    gap: 1px;
+    margin-bottom: 1rem;
+}
+
+.memory-block {
+    aspect-ratio: 1;
+    border-radius: 1px;
+    transition: all 0.2s;
+}
+
+.memory-block.free {
+    background: hsl(var(--border-color));
+}
+
+.memory-block.allocated {
+    background: hsl(var(--accent-color));
+}
+
+.memory-block.system {
+    background: hsl(var(--warning-color));
+}
+
+.memory-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.memory-stats div {
+    background: hsl(var(--accent-bg));
+    padding: 0.5rem;
+    border-radius: 3px;
+}
+
+/* Scheduler Styles */
+.scheduler-controls {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.process-visualization {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    align-items: flex-start;
+}
+
+.cpu-queue, .cpu-execution {
+    flex: 1;
+}
+
+.cpu-queue h3, .cpu-execution h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: hsl(var(--accent-color));
+}
+
+.queue {
+    min-height: 100px;
+    background: hsl(var(--primary-bg));
+    border: 1px solid hsl(var(--border-color));
+    border-radius: 3px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.cpu-box {
+    background: hsl(var(--accent-bg));
+    border: 1px solid hsl(var(--border-color));
+    border-radius: 3px;
+    padding: 1rem;
+    text-align: center;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.process-item {
+    background: hsl(var(--accent-color));
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.process-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.process-table th,
+.process-table td {
+    padding: 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid hsl(var(--border-color));
+}
+
+.process-table th {
+    background: hsl(var(--accent-bg));
+    font-weight: bold;
+}
+
+.process-table tr:hover {
+    background: hsl(var(--accent-bg) / 0.5);
+}
+
+/* File System Styles */
+.filesystem-toolbar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.current-path {
+    margin-left: auto;
+    font-size: 0.9rem;
+    color: hsl(var(--text-secondary));
+}
+
+.filesystem-content {
+    display: flex;
+    gap: 1rem;
+    height: calc(100% - 80px);
+}
+
+.filesystem-tree, .filesystem-details {
+    flex: 1;
+}
+
+.filesystem-tree h4, .filesystem-details h4 {
+    margin-bottom: 0.5rem;
+    color: hsl(var(--accent-color));
+}
+
+#directory-tree, .file-list {
+    background: hsl(var(--primary-bg));
+    border: 1px solid hsl(var(--border-color));
+    border-radius: 3px;
+    padding: 0.5rem;
+    height: calc(100% - 30px);
+    overflow-y: auto;
+}
+
+.tree-item, .file-item {
+    padding: 0.25rem 0.5rem;
+    margin: 0.1rem 0;
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tree-item:hover, .file-item:hover {
+    background: hsl(var(--accent-bg));
+}
+
+.tree-item.selected, .file-item.selected {
+    background: hsl(var(--accent-color));
+    color: white;
+}
+
+.tree-item.directory, .file-item.directory {
+    font-weight: bold;
+}
+
+.tree-item .indent {
+    display: inline-block;
+    width: 20px;
+}
+
+/* Common Button Styles */
+.btn {
+    background: hsl(var(--accent-color));
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+.btn:hover {
+    background: hsl(var(--accent-color) / 0.8);
+}
+
+.btn:disabled {
+    background: hsl(var(--border-color));
+    cursor: not-allowed;
+}
+
+select {
+    background: hsl(var(--accent-bg));
+    color: hsl(var(--text-primary));
+    border: 1px solid hsl(var(--border-color));
+    padding: 0.5rem;
+    border-radius: 3px;
+    font-size: 0.9rem;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: hsl(var(--primary-bg));
+}
+
+::-webkit-scrollbar-thumb {
+    background: hsl(var(--border-color));
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--accent-color));
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .window {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        width: 100% !important;
+        height: 300px !important;
+        margin-bottom: 1rem;
+    }
+    
+    .desktop-content {
+        padding: 1rem;
+        overflow-y: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .taskbar {
+        padding: 0 0.5rem;
+    }
+    
+    .system-info {
+        flex-direction: column;
+        gap: 0.25rem;
+        font-size: 0.8rem;
+    }
+    
+    .window {
+        min-width: 300px;
+        height: 250px !important;
+    }
+    
+    .filesystem-content,
+    .process-visualization {
+        flex-direction: column;
+    }
+    
+    .memory-controls,
+    .scheduler-controls,
+    .filesystem-toolbar {
+        gap: 0.25rem;
+    }
+    
+    .btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+}
