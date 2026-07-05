@@ -6,7 +6,7 @@ It demonstrates core operating-system concepts through a visual desktop interfac
 
 ## Live Demo
 
-🚀 **Try SimpleOS here:** [MySimpleOS Live](https://my-simple-os-devansh25.vercel.app)
+**Try SimpleOS here:** [MySimpleOS Live](https://my-simple-os-devansh25.vercel.app)
 
 ---
 
