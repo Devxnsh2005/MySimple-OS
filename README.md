@@ -4,6 +4,12 @@ SimpleOS is an interactive browser-based operating system simulator built using 
 
 It demonstrates core operating-system concepts through a visual desktop interface, including process scheduling, memory allocation, file-system operations, a shell terminal, and a simulated boot sequence.
 
+## Live Demo
+
+🚀 **Try SimpleOS here:** [MySimpleOS Live](https://my-simple-os-devansh25.vercel.app)
+
+---
+
 ## Features
 
 - Animated bootloader with boot logs and progress status
@@ -22,12 +28,16 @@ It demonstrates core operating-system concepts through a visual desktop interfac
   - Shortest Job First (SJF)
 - Live taskbar showing memory usage, processes, and time
 
+---
+
 ## Technologies Used
 
 - HTML5
 - CSS3
 - JavaScript
-- Font Awesome icons
+- Font Awesome Icons
+
+---
 
 ## Project Structure
 
@@ -37,6 +47,7 @@ MySimpleOS-main/
 ├── index.html              # Main user interface
 ├── styles.css              # Styling for desktop, windows, terminal, etc.
 ├── generated-icon.png      # Project icon
+├── README.md               # Project documentation
 │
 └── js/
     ├── bootloader.js       # Simulated operating-system boot sequence
@@ -46,3 +57,23 @@ MySimpleOS-main/
     ├── scheduler.js        # Process and CPU scheduling logic
     ├── shell.js            # Terminal commands and shell behavior
     └── utils.js            # Shared utilities, logger, and event system
+```
+
+
+## Future Improvements
+
+- Add Priority Scheduling
+- Add persistent storage using Local Storage
+- Add a dark/light theme toggle
+- Add process-priority editing
+- Add waiting-time and turnaround-time statistics
+- Add deadlock simulation
+- Add paging and virtual-memory simulation
+- Improve terminal command support
+- Add custom file and folder creation dialogs
+
+---
+
+## Author
+
+**Devansh Gupta**  
